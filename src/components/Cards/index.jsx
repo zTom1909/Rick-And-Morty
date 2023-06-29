@@ -22,7 +22,9 @@ const Cards = (props) => {
 
   return (
     <>
-      <div className={style.container}>
+
+      {location === "/favorites" &&
+        <div className={style.container}>
         <select name="order" onChange={handleOrder}>
           <option value="A">Ascendente</option>
           <option value="D">Descendente</option>
@@ -35,6 +37,7 @@ const Cards = (props) => {
           <option value="unknown">unknown</option>
         </select>
       </div>
+      }
       <div className={style.containerCards}>
         {location.pathname === "/favorites"
           ? props.myFavorites.map((character) => (
