@@ -6,18 +6,18 @@ import Card from "../Card";
 import style from "./Cards.module.css";
 
 const Cards = (props) => {
-  const [aux, setAux] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState("");
 
   const location = useLocation();
   const dispatch = useDispatch();
 
   const handleOrder = (event) => {
     dispatch(orderCards(event.target.value));
-    setAux(!aux);
+    setSelectedOrder(event.target.value);
   };
   const handleFilter = (event) => {
     dispatch(filterCards(event.target.value));
-    setAux(!aux);
+    setSelectedOrder(event.target.value);
   };
 
   return (
@@ -25,8 +25,9 @@ const Cards = (props) => {
       {location.pathname === "/favorites" &&
         <div className={style.containerFilters}>
         <select name="order" onChange={handleOrder}>
-          <option value="A">Ascendente</option>
-          <option value="D">Descendente</option>
+          {selectedOrder === "" && <option value="">Select an option</option>}
+          <option value="A">Ascending</option>
+          <option value="D">Descending</option>
         </select>
         <select name="filter" onChange={handleFilter}>
           <option value="noFilter">No filters</option>
