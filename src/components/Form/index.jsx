@@ -35,6 +35,7 @@ const Form = ({ login }) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
+      <h2 className={styles.title}>LOGIN</h2>
       <div className={styles.section}>
         <label htmlFor="email" className={styles.label}>
           Email
@@ -42,11 +43,15 @@ const Form = ({ login }) => {
         <input
           type="text"
           name="email"
-          className={styles.input}
+          className={errors.email ? styles.inputError : styles.input}
           value={userData.email}
           onChange={handleChange}
         />
-        <p className={styles.error}>{errors.email}</p>
+        {errors.email ? (
+          <p className={styles.error}>{errors.email}</p>
+        ) : (
+          <p className={styles.errorPlaceholder}>placeholder</p>
+        )}
       </div>
       <div className={styles.section}>
         <label htmlFor="password" className={styles.label}>
@@ -55,15 +60,22 @@ const Form = ({ login }) => {
         <input
           type="password"
           name="password"
-          className={styles.input}
+          className={errors.password ? styles.inputError : styles.input}
           value={userData.password}
           onChange={handleChange}
         />
-        <p className={styles.error}>{errors.password}</p>
+        {errors.password ? (
+          <p className={styles.error}>{errors.password}</p>
+        ) : (
+          <p className={styles.errorPlaceholder}>placeholder</p>
+        )}
       </div>
       <button type="submit" className={styles.submit}>
-        Submit
+        LOGIN
       </button>
+      <div className={styles.forgotPassword}>
+        <p onClick={() => alert("What a shame!")}>Forgot Password?</p>
+      </div>
     </form>
   );
 };
