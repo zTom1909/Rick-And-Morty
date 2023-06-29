@@ -14,6 +14,8 @@ const Form = ({ login }) => {
     password: "",
   });
 
+  const [visiblePassword, setVisiblePassword] = useState(false);
+
   const handleChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
     setErrors(
@@ -33,6 +35,10 @@ const Form = ({ login }) => {
     login(userData);
   };
 
+  const handleVisibility = () => {
+    setVisiblePassword(!visiblePassword);
+  };
+
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <h2 className={styles.title}>LOGIN</h2>
@@ -43,6 +49,7 @@ const Form = ({ login }) => {
         <input
           type="text"
           name="email"
+          placeholder="Email"
           className={errors.email ? styles.inputError : styles.input}
           value={userData.email}
           onChange={handleChange}
@@ -57,13 +64,29 @@ const Form = ({ login }) => {
         <label htmlFor="password" className={styles.label}>
           Password
         </label>
-        <input
-          type="password"
-          name="password"
-          className={errors.password ? styles.inputError : styles.input}
-          value={userData.password}
-          onChange={handleChange}
-        />
+        <div className={styles.inputPassword}>
+          <input
+            type={visiblePassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            className={errors.password ? styles.inputError : styles.input}
+            value={userData.password}
+            onChange={handleChange}
+          />
+          <button
+            type="button"
+            className={styles.visibility}
+            onClick={() => handleVisibility()}
+          >
+            <i
+              className={
+                visiblePassword
+                  ? "fa-regular fa-eye"
+                  : "fa-regular fa-eye-slash"
+              }
+            ></i>
+          </button>
+        </div>
         {errors.password ? (
           <p className={styles.error}>{errors.password}</p>
         ) : (
