@@ -23,7 +23,7 @@ const Cards = (props) => {
   return (
     <div className={style.containerGlobal}>
       {location.pathname === "/favorites" &&
-        <div className={style.containerFilter}>
+        <div className={style.containerFilters}>
         <select name="order" onChange={handleOrder}>
           <option value="A">Ascendente</option>
           <option value="D">Descendente</option>
