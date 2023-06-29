@@ -21,10 +21,9 @@ const Cards = (props) => {
   };
 
   return (
-    <>
-
+    <div className={style.containerGlobal}>
       {location === "/favorites" &&
-        <div className={style.container}>
+        <div className={style.containerFilter}>
         <select name="order" onChange={handleOrder}>
           <option value="A">Ascendente</option>
           <option value="D">Descendente</option>
@@ -67,7 +66,7 @@ const Cards = (props) => {
               />
             ))}
       </div>
-    </>
+    </div>
   );
 };
 

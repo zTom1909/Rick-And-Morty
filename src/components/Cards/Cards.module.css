@@ -1,4 +1,4 @@
-.container,
+.containerFilters,
 .containerCards {
   margin-left: 20px;
   margin-right: 20px;
@@ -7,12 +7,15 @@
   align-content: flex-start;
 }
 
-.container {
+.containerFilters {
   justify-content: space-around;
-  padding-top: 110px;
 }
 
 .containerCards {
   justify-content: center;
   padding-bottom: 120px;
+}
+
+.containerGlobal {
+  padding-top: 110px;
 }
