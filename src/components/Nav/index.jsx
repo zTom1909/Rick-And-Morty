@@ -4,8 +4,8 @@ import styles from "./Nav.module.css";
 
 const Nav = ({ onSearch, logout }) => (
   <div className={styles.container}>
-    <button className={styles.navigationButton} onClick={logout}>
-      Log Out
+    <button className={styles.logoutButton} onClick={logout}>
+      <i className="fa-solid fa-right-from-bracket"></i>
     </button>
     <div className={styles.container2}>
       <Link to="/home">
@@ -19,6 +19,9 @@ const Nav = ({ onSearch, logout }) => (
       </Link>
     </div>
     <SearchBar onSearch={onSearch} />;
+    <button className={styles.language}>
+    <i class="fa-solid fa-globe"></i>
+    </button>
   </div>
 );
 
