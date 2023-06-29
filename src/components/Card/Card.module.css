@@ -66,7 +66,6 @@
   cursor: pointer;
   font-family: "Press Start 2P", Arial, sans-serif;
   z-index: 2;
-  display: none;
 }
 
 .favButton1:hover,
@@ -83,6 +82,7 @@
 
 .favButton2 {
   color: white;
+  display: none;
 }
 
 .container:hover .favButton1, .container:hover .favButton2 {
