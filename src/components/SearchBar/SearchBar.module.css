@@ -1,0 +1,44 @@
+.container {
+  top: 0;
+  right: 0;
+  height: 30px;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+}
+
+.container input {
+  height: 80%;
+  width: 300px;
+  border-radius: 8px 0 0 8px;
+  border-style: hidden;
+  text-indent: 10px;
+}
+
+.container input {
+  outline: none
+}
+
+.buttonSection {
+  height: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.searchButton,
+.randomButton {
+  height: 100%;
+  width: 40px;
+  border-style: hidden;
+  color: #555;
+  background-color: #fff;
+}
+
+.randomButton {
+  border-radius: 0 8px 8px 0;
+}
+
+.buttonSection button:hover {
+  background-color: #ccc;
+}

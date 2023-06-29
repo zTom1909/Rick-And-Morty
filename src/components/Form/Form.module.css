@@ -1,0 +1,38 @@
+.container {
+  /* margin: up right down left */
+  margin: 5% 20%;
+  padding: 10%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: dimgrey;
+}
+
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.label {
+  margin: 0.8rem;
+}
+
+.input {
+    width: 90%;
+}
+
+.submit {
+  margin: 0.8rem;
+}
+
+.error {
+    color: rgb(180, 0, 0);
+}
