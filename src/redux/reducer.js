@@ -35,8 +35,9 @@ const reducer = (state = initialState, { type, payload }) => {
       const sortArrayById = (array, sortingOrder) =>
         // eslint-disable-next-line array-callback-return
         array.sort((a, b) => {
-          if (sortingOrder === "A") return a.id - b.id;
-          if (sortingOrder === "D") return b.id - a.id;
+          if (sortingOrder === "A") return a.name.localeCompare(b.name);
+          if (sortingOrder === "D") return b.name.localeCompare(a.name);
+          return 0;
         });
 
       const sortedCharacters = sortArrayById(state.allCharacters, payload);
