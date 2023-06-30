@@ -17,16 +17,17 @@
 }
 
 .navigationButton {
-  border-style: hidden;
-  background-color: #ffffff00;
-  color: rgb(206, 206, 206);
-  font-size: large;
   width: 8rem;
   height: 2.5rem;
+  font-size: large;
+  color: rgb(206, 206, 206);
+  background-color: #ffffff00;
+  border-style: hidden;
 }
 
 .navigationButton:hover {
   color: white;
+  cursor: pointer;
 }
 
 .language,
@@ -44,4 +45,5 @@
 .language:hover,
 .logoutButton:hover {
   color: white;
+  cursor: pointer;
 }

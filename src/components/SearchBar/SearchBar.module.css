@@ -40,3 +40,8 @@
 .buttonSection button:hover {
   background-color: #ccc;
 }
+
+.searchButton:hover,
+.randomButton:hover {
+  cursor: pointer;
+}
