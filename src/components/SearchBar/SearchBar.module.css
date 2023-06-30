@@ -10,19 +10,16 @@
 }
 
 .container input {
-  height: 80%;
+  height: 100%;
   width: 300px;
   border-radius: 8px 0 0 8px;
+  outline: none;
   border-style: hidden;
   text-indent: 10px;
 }
 
-.container input {
-  outline: none
-}
-
 .buttonSection {
-  height: 80%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
