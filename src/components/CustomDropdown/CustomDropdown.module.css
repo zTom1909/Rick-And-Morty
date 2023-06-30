@@ -1,0 +1,74 @@
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Selected option */
+  .selectedOption {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: larger;
+    color: rgb(206, 206, 206);
+    background-color: #ffffff00;
+    cursor: pointer;
+    /* Add your selected option styles here */
+  }
+  
+  /* Dropdown content (hidden by default) */
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+  }
+  
+  /* Dropdown option */
+  .dropdownOption {
+    padding: 5px 5px 5px 10px;
+    font-size: large;
+    text-align: left;
+    color: rgb(206, 206, 206);
+    background-color: #303030;
+    border-style: hidden;
+    cursor: pointer;
+    /* Add your dropdown option styles here */
+  }
+  
+  .dropdownOption:hover {
+    background-color: #707070;
+  }
+  
+  /* Show the dropdown options on hover */
+  .dropdown:hover .dropdownContent {
+    display: block;
+  }
+  
+  .optionText {
+    margin-right: 10px; /* Adjust spacing between text and icon */
+  }
+  
+  .caretIcon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .default {
+    display: block; /* Displayed by default */
+  }
+  
+  .hovered {
+    display: none; /* Hidden by default */
+  }
+  
+  .dropdown:hover .default {
+    display: none; /* Hide the default caret icon on hover */
+  }
+  
+  .dropdown:hover .hovered {
+    display: block; /* Show the hover caret icon on hover */
+  }
+  
