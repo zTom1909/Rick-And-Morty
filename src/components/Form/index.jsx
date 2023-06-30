@@ -97,7 +97,7 @@ const Form = ({ login }) => {
         LOGIN
       </button>
       <div className={styles.forgotPassword}>
-        <p onClick={() => alert("What a shame!")}>Forgot Password?</p>
+        <p onClick={() => alert("Check github's readme to access ;)")}>Forgot Password?</p>
       </div>
     </form>
   );

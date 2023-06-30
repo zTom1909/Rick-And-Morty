@@ -1,0 +1,37 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.about {
+  height: 100%;
+  padding: 0px 160px;
+  color: #cecece;
+  background-color: #3a3a3ad0;
+}
+
+.about h2 {
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px 0px;
+  margin: 80px 0px 16px;
+}
+
+.about p,
+.about a {
+  font-size: larger;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.about a {
+    font-size: large;
+    text-decoration: none;
+    color: #51d8b6;
+}
+
+.about a:hover {
+    color: #afe4d7;
+    cursor: pointer;
+}

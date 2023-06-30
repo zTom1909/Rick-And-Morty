@@ -19,8 +19,8 @@ const Nav = ({ onSearch, logout }) => (
       </Link>
     </div>
     <SearchBar onSearch={onSearch} />;
-    <button className={styles.language}>
-    <i class="fa-solid fa-globe"></i>
+    <button className={styles.language} onClick={() => alert("This feature is temporarily disabled!")}>
+      <i class="fa-solid fa-globe"></i>
     </button>
   </div>
 );
