@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import style from "./SearchBar.module.css";
 import { useState } from "react";
 
 const SearchBar = (props) => {
   const [id, setId] = useState("");
+  const navigate = useNavigate()
 
   const handleSearch = () => {
     props.onSearch(id);
     setId("");
+    navigate("/home")
   };
   const handleInputUpdate = (event) => setId(event.target.value);
   const handleKeyPress = (event) => event.key === "Enter" && handleSearch();
