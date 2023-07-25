@@ -2,28 +2,37 @@ import axios from "axios";
 import { ADD_FAV, REMOVE_FAV, FILTER, ORDER } from "./types";
 
 export const addFav = (character) => {
-  return (dispatch) => {
-    axios
-      .post("http://localhost:3001/rickandmorty/fav", character)
-      .then(({ data }) => {
-        return dispatch({
-          type: ADD_FAV,
-          payload: data,
-        });
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/rickandmorty/fav",
+        character
+      );
+
+      return dispatch({
+        type: ADD_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 };
 
 export const removeFav = (id) => {
-  return (dispatch) => {
-    axios
-      .delete(`http://localhost:3001/rickandmorty/fav/${id}`)
-      .then(({ data }) => {
-        return dispatch({
-          type: REMOVE_FAV,
-          payload: data,
-        });
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3001/rickandmorty/fav/${id}`
+      );
+
+      return dispatch({
+        type: REMOVE_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 };
 

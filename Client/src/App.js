@@ -17,23 +17,21 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const onSearch = (id) => {
-    axios(`http://localhost:3001/rickandmorty/character/${id}`)
-      .then(({ data }) => {
-        if (!data.name)
-          return window.alert("No se ha encontrado un personaje con esa ID.");
-
-        const dupedCharacters = characters.filter(
-          (character) => character.id === data.id
-        );
-        if (dupedCharacters.length > 0)
-          return window.alert("You already have that character");
-
-        setCharacters(() => [...characters, data]);
-      })
-      .catch(() =>
-        window.alert("No se ha encontrado un personaje con esa ID.")
+  const onSearch = async (id) => {
+    try {
+      const { data } = await axios(
+        `http://localhost:3001/rickandmorty/character/${id}`
       );
+
+      if (!data.name) return window.alert("No se ha encontrado un personaje con esa ID.");
+
+      const dupedCharacters = characters.find(({ id }) => id === data.id);
+      if (dupedCharacters) return window.alert("You already have that character");
+
+      setCharacters(() => [...characters, data]);
+    } catch (error) {
+      window.alert("No se ha encontrado un personaje con esa ID.");
+    }
   };
 
   const onClose = (id) => {
