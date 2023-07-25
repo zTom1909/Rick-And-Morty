@@ -18,7 +18,9 @@
 }
 
 .containerGlobal {
-  padding-top: 80px;
+  margin-top: 80px;
+  overflow-y: auto;
+  height: 87vh;
 }
 
 .containerFilters select {
@@ -39,4 +41,41 @@
 
 .containerFilters option:hover {
   background-color: #707070;
+}
+
+.clear {
+  height: 35px;
+  width: 40px;
+  font-size: larger;
+  text-align: center;
+  line-height: 25px;
+  color: rgb(206, 206, 206);
+  background-color: #ffffff00;
+  border-style: hidden;
+}
+.clear:hover {
+  color: white;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: auto;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #00000000;
+  border-radius: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  color: #000000ff;
 }

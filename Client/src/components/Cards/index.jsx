@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
+import axios from "axios";
+
 import { filterCards, orderCards } from "../../redux/actions";
 import Card from "../Card";
 import CustomDropdown from "../CustomDropdown";
@@ -9,9 +11,14 @@ import style from "./Cards.module.css";
 const Cards = (props) => {
   const [selectedOrder, setSelectedOrder] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [myFavorites, setMyFavorites] = useState([]);
 
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setMyFavorites(props.myFavorites);
+  }, [props.myFavorites]);
 
   const handleOrder = (value) => {
     dispatch(orderCards(value));
@@ -45,11 +52,22 @@ const Cards = (props) => {
             onChange={handleFilter}
             selectedValue={selectedFilter}
           />
+
+          <button
+            className={style.clear}
+            onClick={() =>
+              axios
+                .delete("http://localhost:3001/rickandmorty/fav/*")
+                .then(() => setMyFavorites([]))
+            }
+          >
+            <i className="fa-solid fa-trash"></i>
+          </button>
         </div>
       )}
       <div className={style.containerCards}>
         {location.pathname === "/favorites"
-          ? props.myFavorites.map((character) => (
+          ? myFavorites.map((character) => (
               <Card
                 key={character.id}
                 id={character.id}

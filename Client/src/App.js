@@ -17,11 +17,8 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const EMAIL = "example@email.com";
-  const PASSWORD = "example123";
-
   const onSearch = (id) => {
-    axios(`https://rickandmortyapi.com/api/character/${id}`)
+    axios(`http://localhost:3001/rickandmorty/character/${id}`)
       .then(({ data }) => {
         if (!data.name)
           return window.alert("No se ha encontrado un personaje con esa ID.");
@@ -47,10 +44,13 @@ const App = () => {
   };
 
   const login = ({ email, password }) => {
-    if (email === EMAIL && password === PASSWORD) {
-      setAccess(true);
-      navigate("/home");
-    } else alert("Usuario o contraseña incorrectos");
+    axios(
+      `http://localhost:3001/rickandmorty/login/?email=${email}&password=${password}`
+    ).then(({ data }) => {
+      const { access } = data;
+      setAccess(access);
+      access ? navigate("/home") : alert("Usuario o contraseña incorrectos");
+    });
   };
 
   const logout = () => {

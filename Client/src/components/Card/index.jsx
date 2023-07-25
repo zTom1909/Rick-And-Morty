@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import { addFav, removeFav } from "../../redux/actions";
 
@@ -10,8 +11,10 @@ const Card = (props) => {
   const [isFav, setIsFav] = useState(false);
 
   useEffect(() => {
-    props?.myFavorites?.length && props.myFavorites.forEach(({ id }) => id === props.id && setIsFav(true));
-  }, [props.id, props.myFavorites]);
+    axios("http://localhost:3001/rickandmorty/fav/").then(({data}) => {
+      data?.length && data.forEach(({ id }) => id === props.id && setIsFav(true));
+    })
+  }, [props.id]);
 
   const handleFavorite = () => {
     if (isFav) props.removeFav(props.id);
@@ -53,11 +56,9 @@ const Card = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ myFavorites: state.myFavorites });
-
 const mapDispatchToProps = (dispatch) => ({
   addFav: (character) => dispatch(addFav(character)),
   removeFav: (id) => dispatch(removeFav(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(null, mapDispatchToProps)(Card);
