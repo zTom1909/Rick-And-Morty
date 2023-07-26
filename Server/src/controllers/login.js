@@ -7,7 +7,7 @@ const login = (req, res) => {
   data.forEach((user) => {
     if (user.email === email && user.password === password) access = true;
   });
-  access ? res.json({ access: true }) : res.json({ access: false });
+  access ? res.json({ access: true }) : res.status(400).json({ access: false });
 };
 
 module.exports = login;
