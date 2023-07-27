@@ -38,14 +38,14 @@ describe("Test de Rutas", () => {
       expect(res.body.access).toBeTruthy();
     });
 
-    it("Si se envia la información incorrecta, retornará un objeto con una propiedad access en true", () => {
+    it("Si se envia la información incorrecta, retornará un objeto con una propiedad access en false", () => {
       const responsesArray = [
         agent.get(`/rickandmorty/login?email=${email}&&password=123`),
         agent.get(`/rickandmorty/login?email=asd&&password=${password}`),
         agent.get(`/rickandmorty/login?email=asd&&password=123`),
       ];
 
-      Promise.all(responsesArray).then((responses) =>
+      return Promise.all(responsesArray).then((responses) =>
         responses.forEach((res) => {
           expect(res.statusCode).toBe(400);
           expect(res.body).toHaveProperty("access");
