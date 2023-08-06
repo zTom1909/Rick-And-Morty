@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import DetailComponent from "../../components/DetailComponent";
-import style from "./Detail.module.css"
+import style from "./Detail.module.css";
 
 const Detail = () => {
   const [character, setCharacter] = useState({});
@@ -21,6 +21,11 @@ const Detail = () => {
 
   return (
     <div className={style.container}>
+      <Link to="/home">
+        <button className={style.back}>
+          <i className="fa-solid fa-reply"></i>
+        </button>
+      </Link>
       <DetailComponent
         key={character.id}
         id={character.id}
