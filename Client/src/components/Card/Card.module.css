@@ -110,9 +110,6 @@
   color: white;
   background: linear-gradient(#7e7e7e00, #000000);
   border-radius: 0px 0px 10px 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   z-index: 2;
 }
 
@@ -120,6 +117,9 @@
   height: 40px;
   position: relative;
   margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .imageContainer .text:hover {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import DetailComponent from "../../components/DetailComponent";
 import style from "./Detail.module.css";
@@ -8,6 +8,9 @@ import style from "./Detail.module.css";
 const Detail = () => {
   const [character, setCharacter] = useState({});
   const { id } = useParams();
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios(`http://localhost:3001/rickandmorty/character/${id}`)
       .then(({ data }) => {
@@ -21,11 +24,9 @@ const Detail = () => {
 
   return (
     <div className={style.container}>
-      <Link to="/home">
-        <button className={style.back}>
-          <i className="fa-solid fa-reply"></i>
-        </button>
-      </Link>
+      <button className={style.back} onClick={() => navigate(-1)}>
+        <i className="fa-solid fa-reply"></i>
+      </button>
       <DetailComponent
         key={character.id}
         id={character.id}
