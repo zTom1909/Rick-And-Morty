@@ -62,7 +62,7 @@ const App = () => {
 
   return (
     <>
-      {location.pathname !== "/" && <Nav onSearch={onSearch} logout={logout} />}
+      {location.pathname !== "/" && !location.pathname.includes("/detail") && <Nav onSearch={onSearch} logout={logout} />}
       <Routes>
         <Route path="/" element={<Landing login={login} />} />
         <Route

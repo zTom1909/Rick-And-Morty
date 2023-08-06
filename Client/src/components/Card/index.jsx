@@ -41,16 +41,10 @@ const Card = (props) => {
             <i className="fa-regular fa-heart" />
           </button>
         )}
-        <Link to={`/detail/${props.id}`}>
+        <Link className={style.textContainer} to={`/detail/${props.id}`}>
           <h2 className={style.text}>{props.name}</h2>
         </Link>
         <img src={props.image} alt={props.name} />
-      </div>
-      <div className={style.textContainer}>
-        <h2 className={style.text}>
-          {props.species} - {props.gender}
-        </h2>
-        <h2 className={style.text}>{props.origin?.name}</h2>
       </div>
     </div>
   );

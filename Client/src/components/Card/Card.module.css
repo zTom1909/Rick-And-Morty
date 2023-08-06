@@ -9,10 +9,7 @@
   display: flex;
   flex-direction: column;
   background-color: #5858585b;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-radius: 10px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
   transition: all 0.1s ease;
 }
@@ -85,51 +82,46 @@
   display: none;
 }
 
-.container:hover .favButton1, .container:hover .favButton2 {
+.container:hover .favButton1,
+.container:hover .favButton2 {
   display: block;
-}
-
-.closeButton:hover {
-  background-color: #555555aa;
 }
 
 .imageContainer img {
   height: 250px;
   width: 250px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
 }
 
-.imageContainer h2 {
-  max-width: 240px;
-  height: fit-content;
+.imageContainer .textContainer {
+  width: 240px;
+  height: 90px;
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 5px;
   margin: 0;
   left: 0;
   bottom: 0;
-  padding: 5px;
-  color: #202020;
-  background-color: #d9db44dd;
-  border-top-right-radius: 10px;
-  box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.6);
+  line-height: 40px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(#7e7e7e00, #000000);
+  border-radius: 0px 0px 10px 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 2;
 }
 
-.imageContainer h2:hover {
-  color: #5e5e5e;
-}
-
-.textContainer {
-  padding: 0px;
+.imageContainer .text {
+  height: 40px;
+  position: relative;
   margin: 0px;
 }
 
-.textContainer h2 {
-  font-size: medium;
-  font-family: "Press Start 2P", Arial, sans-serif;
-  font-weight: 100;
-  color: rgb(223, 223, 223);
+.imageContainer .text:hover {
+  color: #b8b8b8;
 }

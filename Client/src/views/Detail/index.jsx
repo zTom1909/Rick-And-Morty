@@ -2,13 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import Card from "../../components/Card";
+import DetailComponent from "../../components/DetailComponent";
+import style from "./Detail.module.css"
 
 const Detail = () => {
   const [character, setCharacter] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    /* axios(`https://rickandmortyapi.com/api/character/${id}`) */
     axios(`http://localhost:3001/rickandmorty/character/${id}`)
       .then(({ data }) => {
         data.name
@@ -20,8 +20,8 @@ const Detail = () => {
   }, [id]);
 
   return (
-    <div>
-      <Card
+    <div className={style.container}>
+      <DetailComponent
         key={character.id}
         id={character.id}
         name={character.name}
