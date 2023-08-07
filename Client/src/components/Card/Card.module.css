@@ -93,6 +93,10 @@
   border-radius: 10px;
 }
 
+.imgDead {
+  filter: grayscale(100%);
+}
+
 .imageContainer .textContainer {
   width: 240px;
   height: 90px;
@@ -108,8 +112,8 @@
   line-height: 40px;
   text-decoration: none;
   color: white;
-  background: linear-gradient(#7e7e7e00, #000000);
-  border-radius: 0px 0px 10px 10px;
+  background: linear-gradient(#7e7e7e00, #0f0f0f);
+  border-radius: 0px 0px 8px 8px;
   z-index: 2;
 }
 

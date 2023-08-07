@@ -44,7 +44,7 @@ const Card = (props) => {
         <Link className={style.textContainer} to={`/detail/${props.id}`}>
           <h2 className={style.text}>{props.name}</h2>
         </Link>
-        <img src={props.image} alt={props.name} />
+        <img className={props.status === "Dead" ? style.imgDead : style.imgAlive} src={props.image} alt={props.name} />
       </div>
     </div>
   );

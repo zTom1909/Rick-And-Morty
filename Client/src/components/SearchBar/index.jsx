@@ -3,17 +3,17 @@ import style from "./SearchBar.module.css";
 import { useState } from "react";
 
 const SearchBar = (props) => {
-  const [id, setId] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate()
 
   const handleSearch = () => {
-    props.onSearch(id);
-    setId("");
+    props.onSearch(inputValue);
+    setInputValue("");
     navigate("/home")
   };
-  const handleInputUpdate = (event) => setId(event.target.value);
+  const handleInputUpdate = (event) => setInputValue(event.target.value);
   const handleKeyPress = (event) => event.key === "Enter" && handleSearch();
-  const handleRandom = () => setId(String(Math.floor(Math.random() * 826) + 1));
+  const handleRandom = () => setInputValue(String(Math.floor(Math.random() * 826) + 1));
 
   return (
     <div className={style.container}>
@@ -21,8 +21,8 @@ const SearchBar = (props) => {
         type="search"
         onChange={handleInputUpdate}
         onKeyPress={handleKeyPress}
-        placeholder="Escriba la ID del personaje a agregar"
-        value={id}
+        placeholder="Type either an ID or Name to search"
+        value={inputValue}
       />
       <div className={style.buttonSection}>
         <button className={style.searchButton} onClick={handleSearch}>

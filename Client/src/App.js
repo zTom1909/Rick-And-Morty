@@ -17,19 +17,61 @@ const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const onSearch = async (id) => {
+  const onSearch = async (input) => {
     try {
-      const { data } = await axios(
-        `http://localhost:3001/rickandmorty/character/${id}`
-      );
+      const availableStatuses = ["alive", "dead", "unknown"];
+      const availableGenders = ["female", "male", "genderless", "unknown"]; //This comes from the API, don't cancel me D:
 
-      if (!data.name) return window.alert("No se ha encontrado un personaje con esa ID.");
+      if (!isNaN(input)) {
+        const { data } = await axios(
+          `http://localhost:3001/rickandmorty/search?id=${input}`
+        );
+        if (!data.name) return window.alert("No characters found.");
+        const dupedCharacters = characters.some(({ id }) => id === data.id);
+        if (dupedCharacters)
+          return window.alert("You already have that character.");
+        setCharacters(() => [...characters, data]);
+      } else {
+        let baseURL = "http://localhost:3001/rickandmorty/search?";
+        const inputWords = input.split(" ");
 
-      const dupedCharacters = characters.find(({ id }) => id === data.id);
-      if (dupedCharacters) return window.alert("You already have that character");
+        const hasStatus = inputWords.find((word) =>
+          availableStatuses.includes(word.toLowerCase())
+        );
+        const hasGender = inputWords.find((word) =>
+          availableGenders.includes(word.toLowerCase())
+        );
 
-      setCharacters(() => [...characters, data]);
+        if (hasStatus) baseURL += `status=${hasStatus}&`;
+        if (hasGender) baseURL += `gender=${hasGender}&`;
+
+        const filteredInputWords = inputWords.filter(
+          (word) =>
+            !availableStatuses.includes(word) &&
+            !availableGenders.includes(word)
+        );
+
+        if (filteredInputWords.length) baseURL += `name=${filteredInputWords.join(" ")}&`;
+        else return window.alert("No name specified.")
+
+        console.log(baseURL);
+
+        const {
+          data,
+        } = await axios(baseURL);
+        //Temporarily using only the first available character
+        const newCharacter = data[0];
+
+        if (!newCharacter.name) return window.alert("No characters found.");
+        const dupedCharacters = characters.some(
+          ({ id }) => id === newCharacter.id
+        );
+        if (dupedCharacters)
+          return window.alert("You already have that character.");
+        setCharacters(() => [...characters, newCharacter]);
+      }
     } catch (error) {
+      console.log(error);
       window.alert("No se ha encontrado un personaje con esa ID.");
     }
   };
@@ -62,7 +104,9 @@ const App = () => {
 
   return (
     <>
-      {location.pathname !== "/" && !location.pathname.includes("/detail") && <Nav onSearch={onSearch} logout={logout} />}
+      {location.pathname !== "/" && !location.pathname.includes("/detail") && (
+        <Nav onSearch={onSearch} logout={logout} />
+      )}
       <Routes>
         <Route path="/" element={<Landing login={login} />} />
         <Route

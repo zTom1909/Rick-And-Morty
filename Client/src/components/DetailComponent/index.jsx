@@ -7,7 +7,7 @@ const DetailComponent = (props) => {
       <div className={style.imageContainer}>
         <div className={style.shadow} />
         {props.image ? (
-          <img src={props.image} alt={props.name} />
+          <img className={props.status === "Dead" ? style.imgDead : style.imgAlive} src={props.image} alt={props.name} />
         ) : (
           <img src={loadingGif} alt="loading" />
         )}

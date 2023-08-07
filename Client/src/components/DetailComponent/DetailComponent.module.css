@@ -35,6 +35,10 @@
   border-radius: 10px;
 }
 
+.imgDead {
+  filter: grayscale(100%);
+}
+
 .imageContainer .text {
   position: absolute;
   margin: 8px;
