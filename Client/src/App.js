@@ -23,7 +23,7 @@ const App = () => {
       const availableGenders = ["female", "male", "genderless", "unknown"]; //This comes from the API, don't cancel me D:
 
       if (!isNaN(input)) {
-        const { data } = await axios(
+        const { data } = await axios.get(
           `http://localhost:3001/rickandmorty/search?id=${input}`
         );
         if (!data.name) return window.alert("No characters found.");
@@ -51,14 +51,11 @@ const App = () => {
             !availableGenders.includes(word)
         );
 
-        if (filteredInputWords.length) baseURL += `name=${filteredInputWords.join(" ")}&`;
-        else return window.alert("No name specified.")
+        if (filteredInputWords.length)
+          baseURL += `name=${filteredInputWords.join(" ")}&`;
+        else return window.alert("No name specified.");
 
-        console.log(baseURL);
-
-        const {
-          data,
-        } = await axios(baseURL);
+        const { data } = await axios.get(baseURL);
         //Temporarily using only the first available character
         const newCharacter = data[0];
 
@@ -83,14 +80,44 @@ const App = () => {
     setCharacters(() => [...newCharactersList]);
   };
 
-  const login = ({ email, password }) => {
-    axios(
-      `http://localhost:3001/rickandmorty/login/?email=${email}&password=${password}`
-    ).then(({ data }) => {
-      const { access } = data;
-      setAccess(access);
-      access ? navigate("/home") : alert("Usuario o contraseña incorrectos");
-    });
+  const register = async ({ email, password }) => {
+    try {
+      await axios.post(`http://localhost:3001/rickandmorty/register/`, {
+        email,
+        password,
+      });
+      setAccess(true);
+      navigate("/home");
+    } catch (error) {
+      alert(error.response.data.error);
+      /*
+       * error muestra la informacion del error que recibe el catch por parametro,
+       * este error tiene la propiedad response.data que muestra la informacion que
+       * devuelve el response (res.send(), res.json(), etc). En este caso, cuando
+       * hay un error en el login se devuelve un objeto con la propiedad error con
+       * el mensaje correspondiente, por eso accedemos al .error del response
+       */
+    }
+  };
+
+  const login = async ({ email, password }) => {
+    try {
+      await axios.get(
+        `http://localhost:3001/rickandmorty/login/?email=${email}&password=${password}`
+      );
+      setAccess(true);
+      navigate("/home");
+    } catch (error) {
+      setAccess(false);
+      alert(error.response.data.error);
+      /*
+       * error muestra la informacion del error que recibe el catch por parametro,
+       * este error tiene la propiedad response.data que muestra la informacion que
+       * devuelve el response (res.send(), res.json(), etc). En este caso, cuando
+       * hay un error en el login se devuelve un objeto con la propiedad error con
+       * el mensaje correspondiente, por eso accedemos al .error del response
+       */
+    }
   };
 
   const logout = () => {
@@ -108,7 +135,10 @@ const App = () => {
         <Nav onSearch={onSearch} logout={logout} />
       )}
       <Routes>
-        <Route path="/" element={<Landing login={login} />} />
+        <Route
+          path="/"
+          element={<Landing register={register} login={login} />}
+        />
         <Route
           path="/home"
           element={<Home characters={characters} onClose={onClose} />}

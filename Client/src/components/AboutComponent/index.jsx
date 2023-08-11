@@ -9,7 +9,7 @@ const AboutComponent = () => {
         <p>
           Welcome to the Rick and Morty Character Search website! We are proud
           to present this project developed by Tomás Iglesias, a passionate
-          19-year-old student currently studying the Full Stack Developer course
+          19-year-old student currently studying at a Full Stack Developer Bootcamp
           on the SoyHenry platform.
         </p>
         <p>
@@ -17,8 +17,8 @@ const AboutComponent = () => {
           skills by creating an interactive platform for searching and exploring
           characters from the popular TV show "Rick and Morty". Through the
           utilization of the Rick and Morty API, you can search for characters
-          by their ID, view their details, and even add them to your favorites
-          list.
+          by their ID or Name, view their details, and even add them to your favorites
+          list!
         </p>
         <p>
           We have implemented various features to enhance your experience,

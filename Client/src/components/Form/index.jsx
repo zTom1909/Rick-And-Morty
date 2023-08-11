@@ -3,7 +3,9 @@ import styles from "./Form.module.css";
 
 import validate from "../../functions/validation";
 
-const Form = ({ login }) => {
+const Form = ({ register, login }) => {
+  const [isRegister, setIsRegister] = useState(true);
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -32,7 +34,7 @@ const Form = ({ login }) => {
     if (errorsArray.length)
       return alert("Se encontraron errores, revisalos e intenta nuevamente");
 
-    login(userData);
+    isRegister ? register(userData) : login(userData);
   };
 
   const handleVisibility = () => {
@@ -41,7 +43,7 @@ const Form = ({ login }) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
-      <h2 className={styles.title}>LOGIN</h2>
+      <h2 className={styles.title}>{isRegister ? "REGISTER" : "LOGIN"}</h2>
       <div className={styles.section}>
         <label htmlFor="email" className={styles.label}>
           Email
@@ -94,10 +96,18 @@ const Form = ({ login }) => {
         )}
       </div>
       <button type="submit" className={styles.submit}>
-        LOGIN
+        {isRegister ? "REGISTER" : "LOGIN"}
       </button>
       <div className={styles.forgotPassword}>
-        <p onClick={() => alert("Check github's readme to access ;)")}>Forgot Password?</p>
+        {isRegister ? (
+          <p onClick={() => setIsRegister(false)}>
+            Already registered? Log In
+          </p>
+        ) : (
+          <p onClick={() => alert("Check github's readme to access ;)")}>
+            Forgot Password?
+          </p>
+        )}
       </div>
     </form>
   );
