@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/";
 import styles from "./Nav.module.css";
 
-const Nav = ({ onSearch, logout }) => (
+const Nav = ({ hasCharacter, onSearch, logout }) => (
   <div className={styles.container}>
     <button className={styles.logoutButton} onClick={logout}>
       <i className="fa-solid fa-right-from-bracket"></i>
@@ -18,8 +18,11 @@ const Nav = ({ onSearch, logout }) => (
         <button className={styles.navigationButton}>Favorites</button>
       </Link>
     </div>
-    <SearchBar onSearch={onSearch} />;
-    <button className={styles.language} onClick={() => alert("This feature is temporarily disabled!")}>
+    <SearchBar hasCharacter={hasCharacter} onSearch={onSearch} />;
+    <button
+      className={styles.language}
+      onClick={() => alert("This feature is temporarily disabled!")}
+    >
       <i className="fa-solid fa-globe"></i>
     </button>
   </div>

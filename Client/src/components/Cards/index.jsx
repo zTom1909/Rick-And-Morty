@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 
-import { filterCards, orderCards } from "../../redux/actions";
+import { filterCards, getFav, orderCards } from "../../redux/actions";
 import Card from "../Card";
 import CustomDropdown from "../CustomDropdown";
 import style from "./Cards.module.css";
@@ -17,8 +17,12 @@ const Cards = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getFav(props.email))
+  }, [props.email, dispatch]);
+
+  useEffect(() => {
     setMyFavorites(props.myFavorites);
-  }, [props.myFavorites]);
+  }, [props.myFavorites])
 
   const handleOrder = (value) => {
     dispatch(orderCards(value));
@@ -57,7 +61,7 @@ const Cards = (props) => {
             className={style.clear}
             onClick={() =>
               axios
-                .delete("http://localhost:3001/rickandmorty/fav/*")
+                .delete(`http://localhost:3001/rickandmorty/fav/*?email=${props.email}`)
                 .then(() => setMyFavorites([]))
             }
           >
@@ -100,6 +104,7 @@ const Cards = (props) => {
 
 const mapStateToProps = (state) => ({
   myFavorites: state.myFavorites,
+  email: state.email
 });
 
 export default connect(mapStateToProps, null)(Cards);

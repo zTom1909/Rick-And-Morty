@@ -1,23 +1,29 @@
-import { ADD_FAV, REMOVE_FAV, FILTER, ORDER } from "./types";
+import {
+  GET_FAV,
+  ADD_FAV,
+  REMOVE_FAV,
+  FILTER,
+  ORDER,
+  ADD_EMAIL,
+} from "./types";
 
 const initialState = {
   allCharacters: [],
   myFavorites: [],
+  email: "",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case GET_FAV:
+      return { ...state, myFavorites: payload, allCharacters: payload };
     case ADD_FAV:
-      //const addedCharacter = [...state.allCharacters, payload];
       return {
         ...state,
         allCharacters: payload,
         myFavorites: payload,
       };
     case REMOVE_FAV:
-      /* const removedCharacter = state.allCharacters.filter(
-        ({ id }) => id !== Number(payload)
-      ); */
       return {
         ...state,
         allCharacters: payload,
@@ -42,6 +48,8 @@ const reducer = (state = initialState, { type, payload }) => {
 
       const sortedCharacters = sortArrayById(state.allCharacters, payload);
       return { ...state, myFavorites: sortedCharacters };
+    case ADD_EMAIL:
+      return { ...state, email: payload };
     default:
       return state;
   }

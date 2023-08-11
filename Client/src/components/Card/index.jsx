@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import { addFav, removeFav } from "../../redux/actions";
@@ -10,15 +10,23 @@ import style from "./Card.module.css";
 const Card = (props) => {
   const [isFav, setIsFav] = useState(false);
 
+  const email = useSelector((state) => state.email);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    axios("http://localhost:3001/rickandmorty/fav/").then(({data}) => {
-      data?.length && data.forEach(({ id }) => id === props.id && setIsFav(true));
-    })
-  }, [props.id]);
+    axios
+      .get("http://localhost:3001/rickandmorty/fav/?email=" + email)
+      .then(({ data }) => {
+        data?.length &&
+          data.forEach(({ id }) => id === props.id && setIsFav(true));
+      });
+  }, [props.id, email]);
 
   const handleFavorite = () => {
-    if (isFav) props.removeFav(props.id);
-    else props.addFav(props);
+    const { id, name, gender, status, species, origin, image } = props;
+    if (isFav) dispatch(removeFav(email, id));
+    else
+      dispatch(addFav({ id, name, gender, status, species, origin, image }, email));
 
     setIsFav(!isFav);
   };
@@ -44,15 +52,14 @@ const Card = (props) => {
         <Link className={style.textContainer} to={`/detail/${props.id}`}>
           <h2 className={style.text}>{props.name}</h2>
         </Link>
-        <img className={props.status === "Dead" ? style.imgDead : style.imgAlive} src={props.image} alt={props.name} />
+        <img
+          className={props.status === "Dead" ? style.imgDead : style.imgAlive}
+          src={props.image}
+          alt={props.name}
+        />
       </div>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addFav: (character) => dispatch(addFav(character)),
-  removeFav: (id) => dispatch(removeFav(id)),
-});
-
-export default connect(null, mapDispatchToProps)(Card);
+export default Card;

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+
+import { addEmail } from "./redux/actions";
 
 import About from "./views/About";
 import Detail from "./views/Detail";
@@ -16,6 +19,11 @@ const App = () => {
   const [access, setAccess] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const hasCharacter = (id) => {
+    return characters.some((character) => character.id === id);
+  };
 
   const onSearch = async (input) => {
     try {
@@ -88,6 +96,7 @@ const App = () => {
       });
       setAccess(true);
       navigate("/home");
+      dispatch(addEmail(email))
     } catch (error) {
       alert(error.response.data.error);
       /*
@@ -107,6 +116,7 @@ const App = () => {
       );
       setAccess(true);
       navigate("/home");
+      dispatch(addEmail(email))
     } catch (error) {
       setAccess(false);
       alert(error.response.data.error);
@@ -132,7 +142,7 @@ const App = () => {
   return (
     <>
       {location.pathname !== "/" && !location.pathname.includes("/detail") && (
-        <Nav onSearch={onSearch} logout={logout} />
+        <Nav hasCharacter={hasCharacter} onSearch={onSearch} logout={logout} />
       )}
       <Routes>
         <Route

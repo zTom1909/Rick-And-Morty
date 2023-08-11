@@ -4,16 +4,22 @@ import { useState } from "react";
 
 const SearchBar = (props) => {
   const [inputValue, setInputValue] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleSearch = () => {
-    props.onSearch(inputValue);
+  const handleSearch = (id) => {
+    id ? props.onSearch(id) : props.onSearch(inputValue);
     setInputValue("");
-    navigate("/home")
+    navigate("/home");
   };
   const handleInputUpdate = (event) => setInputValue(event.target.value);
   const handleKeyPress = (event) => event.key === "Enter" && handleSearch();
-  const handleRandom = () => setInputValue(String(Math.floor(Math.random() * 826) + 1));
+  const handleRandom = () => {
+    let randomNumber = Math.floor(Math.random() * 826) + 1;
+    while (props.hasCharacter(randomNumber)) {
+      randomNumber = Math.floor(Math.random() * 826) + 1;
+    }
+    handleSearch(String(randomNumber));
+  };
 
   return (
     <div className={style.container}>

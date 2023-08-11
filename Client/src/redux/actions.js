@@ -1,11 +1,35 @@
 import axios from "axios";
-import { ADD_FAV, REMOVE_FAV, FILTER, ORDER } from "./types";
+import {
+  ADD_FAV,
+  REMOVE_FAV,
+  FILTER,
+  ORDER,
+  ADD_EMAIL,
+  GET_FAV,
+} from "./types";
 
-export const addFav = (character) => {
+export const getFav = (email) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3001/rickandmorty/fav?email=${email}`
+      );
+
+      return dispatch({
+        type: GET_FAV,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+};
+
+export const addFav = (character, email) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/rickandmorty/fav",
+        `http://localhost:3001/rickandmorty/fav?email=${email}`,
         character
       );
 
@@ -19,11 +43,11 @@ export const addFav = (character) => {
   };
 };
 
-export const removeFav = (id) => {
+export const removeFav = (email, id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:3001/rickandmorty/fav/${id}`
+        `http://localhost:3001/rickandmorty/fav/${id}?email=${email}`
       );
 
       return dispatch({
@@ -44,4 +68,9 @@ export const filterCards = (gender) => ({
 export const orderCards = (order) => ({
   type: ORDER,
   payload: order,
+});
+
+export const addEmail = (email) => ({
+  type: ADD_EMAIL,
+  payload: email,
 });
