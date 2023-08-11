@@ -18,6 +18,11 @@ module.exports = (sequelize) => {
       password: {
          type: DataTypes.STRING,
          allowNull: false
+      },
+      language: {
+         type: DataTypes.ENUM("es", "en"),
+         defaultValue: "es",
+         allowNull: false
       }
    }, { timestamps: false });
 };
