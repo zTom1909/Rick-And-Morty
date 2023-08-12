@@ -1,12 +1,24 @@
 import axios from "axios";
 import {
+  ADD_CARD,
+  REMOVE_CARD,
+  GET_FAV,
   ADD_FAV,
   REMOVE_FAV,
   FILTER,
   ORDER,
   ADD_EMAIL,
-  GET_FAV,
 } from "./types";
+
+export const addCard = (character) => ({
+  type: ADD_CARD,
+  payload: character,
+});
+
+export const removeCard = (id) => ({
+  type: REMOVE_CARD,
+  payload: id,
+});
 
 export const getFav = (email) => {
   return async (dispatch) => {
@@ -60,14 +72,14 @@ export const removeFav = (email, id) => {
   };
 };
 
-export const filterCards = (gender) => ({
+export const filterCards = (gender, target = "myFavorites") => ({
   type: FILTER,
-  payload: gender,
+  payload: { target, gender },
 });
 
-export const orderCards = (order) => ({
+export const orderCards = (order, target = "myFavorites") => ({
   type: ORDER,
-  payload: order,
+  payload: { target, order },
 });
 
 export const addEmail = (email) => ({

@@ -26,14 +26,14 @@ const Form = ({ register, login }) => {
     setUserData({ ...userData, [name]: value });
     setErrors((previousErrors) => ({
       ...previousErrors,
-      ...validate({ [name]: value }, userData.password),
+      ...validate({ [name]: value }, userData.password, isRegister),
     }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const errorHandler = validate(userData, userData.password);
+    const errorHandler = validate(userData, userData.password, isRegister);
     setErrors(errorHandler);
     const errorsArray = Object.values(errorHandler).filter(
       (value) => value !== ""

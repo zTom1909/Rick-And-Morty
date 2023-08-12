@@ -31,7 +31,7 @@ const SearchBar = (props) => {
         value={inputValue}
       />
       <div className={style.buttonSection}>
-        <button className={style.searchButton} onClick={handleSearch}>
+        <button className={style.searchButton} onClick={() => handleSearch()}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
         <button className={style.randomButton} onClick={handleRandom}>

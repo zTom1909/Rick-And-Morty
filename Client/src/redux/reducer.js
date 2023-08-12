@@ -1,4 +1,6 @@
 import {
+  ADD_CARD,
+  REMOVE_CARD,
   GET_FAV,
   ADD_FAV,
   REMOVE_FAV,
@@ -8,13 +10,24 @@ import {
 } from "./types";
 
 const initialState = {
+  allCards: [],
   allCharacters: [],
+  myCards: [],
   myFavorites: [],
   email: "",
 };
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case ADD_CARD:
+      const allCards = [...state.myCards, payload];
+      return { ...state, myCards: allCards, allCards };
+    case REMOVE_CARD:
+      if (payload === "*") return { ...state, myCards: [], allCards: [] };
+      const removedCards = state.myCards.filter(
+        (character) => character.id !== payload
+      );
+      return { ...state, myCards: removedCards, allCards: removedCards };
     case GET_FAV:
       return { ...state, myFavorites: payload, allCharacters: payload };
     case ADD_FAV:
@@ -30,14 +43,24 @@ const reducer = (state = initialState, { type, payload }) => {
         myFavorites: payload,
       };
     case FILTER:
+      const { gender } = payload;
+      const charactersToFilter =
+        payload.target === "myFavorites" ? state.allCharacters : state.allCards;
       const filteredCharacters =
-        payload !== "noFilter"
-          ? state.allCharacters.filter(
-              (character) => character.gender === payload
+        gender !== "noFilter"
+          ? charactersToFilter.filter(
+              (character) => character.gender === gender
             )
-          : state.allCharacters;
-      return { ...state, myFavorites: filteredCharacters };
+          : charactersToFilter;
+      const saveFilterLocation =
+        payload.target === "myFavorites"
+          ? { myFavorites: filteredCharacters }
+          : { myCards: filteredCharacters };
+      return { ...state, ...saveFilterLocation };
     case ORDER:
+      const { order } = payload;
+      const charactersToOrder =
+        payload.target === "myFavorites" ? state.allCharacters : state.allCards;
       const sortArrayById = (array, sortingOrder) =>
         // eslint-disable-next-line array-callback-return
         array.sort((a, b) => {
@@ -45,9 +68,12 @@ const reducer = (state = initialState, { type, payload }) => {
           if (sortingOrder === "D") return b.name.localeCompare(a.name);
           return 0;
         });
-
-      const sortedCharacters = sortArrayById(state.allCharacters, payload);
-      return { ...state, myFavorites: sortedCharacters };
+      const sortedCharacters = sortArrayById(charactersToOrder, order);
+      const saveOrderLocation =
+        payload.target === "myFavorites"
+          ? { myFavorites: sortedCharacters }
+          : { myCards: sortedCharacters };
+      return { ...state, ...saveOrderLocation };
     case ADD_EMAIL:
       return { ...state, email: payload };
     default:

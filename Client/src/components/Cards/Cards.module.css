@@ -6,19 +6,24 @@
 }
 
 .containerFilters {
+  width: 100%;
+  position: fixed;
+  right: 0px;
+  top: 80px;
   padding: 20px 0px 0px;
   justify-content: space-around;
   background-color: #80808080;
+  z-index: 4;
 }
 
 .containerCards {
   justify-content: center;
-  margin: 20px 20px 20px 0px;
+  margin: 10px 20px 20px 0px;
   padding-bottom: 120px;
 }
 
 .containerGlobal {
-  margin-top: 80px;
+  margin-top: 150px;
   overflow-y: auto;
   height: 87vh;
 }

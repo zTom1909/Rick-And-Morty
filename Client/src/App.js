@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { addEmail } from "./redux/actions";
+import { addCard, addEmail, removeCard } from "./redux/actions";
 
 import About from "./views/About";
 import Detail from "./views/Detail";
@@ -15,11 +15,11 @@ import Nav from "./components/Nav";
 import "./App.css";
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
   const [access, setAccess] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const characters = useSelector((state) => state.myCards)
 
   const hasCharacter = (id) => {
     return characters.some((character) => character.id === id);
@@ -38,7 +38,7 @@ const App = () => {
         const dupedCharacters = characters.some(({ id }) => id === data.id);
         if (dupedCharacters)
           return window.alert("You already have that character.");
-        setCharacters(() => [...characters, data]);
+        dispatch(addCard(data));
       } else {
         let baseURL = "http://localhost:3001/rickandmorty/search?";
         const inputWords = input.split(" ");
@@ -66,14 +66,13 @@ const App = () => {
         const { data } = await axios.get(baseURL);
         //Temporarily using only the first available character
         const newCharacter = data[0];
-
         if (!newCharacter.name) return window.alert("No characters found.");
         const dupedCharacters = characters.some(
           ({ id }) => id === newCharacter.id
         );
         if (dupedCharacters)
           return window.alert("You already have that character.");
-        setCharacters(() => [...characters, newCharacter]);
+        dispatch(addCard(newCharacter))
       }
     } catch (error) {
       console.log(error);
@@ -82,10 +81,7 @@ const App = () => {
   };
 
   const onClose = (id) => {
-    const newCharactersList = characters.filter(
-      (character) => character.id !== parseInt(id)
-    );
-    setCharacters(() => [...newCharactersList]);
+    dispatch(removeCard(id))
   };
 
   const register = async ({ email, password }) => {
@@ -103,7 +99,7 @@ const App = () => {
        * error muestra la informacion del error que recibe el catch por parametro,
        * este error tiene la propiedad response.data que muestra la informacion que
        * devuelve el response (res.send(), res.json(), etc). En este caso, cuando
-       * hay un error en el login se devuelve un objeto con la propiedad error con
+       * hay un error en el register se devuelve un objeto con la propiedad error con
        * el mensaje correspondiente, por eso accedemos al .error del response
        */
     }

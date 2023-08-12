@@ -1,8 +1,7 @@
-const validate = (input, password) => {
+const validate = (input, password, isRegister) => {
   const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const regexPassword = /^.*[0-9].*/;
   let errors = {};
-
   Object.keys(input).forEach((field) => {
     const value = input[field];
     switch (field) {
@@ -22,7 +21,7 @@ const validate = (input, password) => {
         else errors.password = "";
         break;
       case "confirmPassword":
-        if (value !== password)
+        if (isRegister && value !== password)
           errors.confirmPassword = "La contraseña debe ser igual a la anterior";
         else errors.confirmPassword = "";
         break;
